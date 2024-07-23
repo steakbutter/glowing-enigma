@@ -22,10 +22,15 @@ const thoughtSchema = new Schema(
           virtuals: true,  
           getters: true,
         },
+          id: false,
       }
 );
 
-// Virtual property
+// Virtual properties:
+thoughtSchema.virtual('formattedCreatedAt').get(function() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'}
+    return this.createdAt.toLocaleDateString('en-Us', options);
+});
 thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
