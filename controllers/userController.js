@@ -28,17 +28,38 @@ module.exports = {
 
     // Create a user
     async createUser(req, res) {
-        return res.status(200)
+        try {
+            const user = await User.create(req.body);
+            res.json(user);
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    // Delete User
+    async deleteUser(req, res) {
+        try {
+            const user = await User.findOneAndRemove({ _id: req.params.userId });
+            if (!user) {
+                return res.status(400).json({ message: 'No user found with that id'})
+            }
+            res.json({ message: 'User succesfully deleted.'});
+        } catch (error) {
+            res.status(500).json(error);
+        }
     },
 
     // Update User
     async updateUser(req, res) {
-        return res.status(200)
+        try {
+            const user = await User.findOneAndUpdate({ _id: req.params.userId });
+            if(!user) {
+                return res.status(400).json({ message: 'No user found with that id'})
+            }
+            res.json({ message: 'User succesfully updated'});
+        } catch (error) {
+            res.status(500).json(error);
+        }
     },
 
-    // Delete User
-    async deleteUser(req, res) {
-        return res.status(200)
-    },
 
 }
