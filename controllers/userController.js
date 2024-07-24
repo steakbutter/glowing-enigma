@@ -1,5 +1,5 @@
-const { ObjectId } = require('mongoose').Types;
-const { Thought, User } = require('../models');
+//  const { ObjectId } = require('mongoose').Types;
+const {Thought, User } = require('../models');
 
 module.exports = {
     // Get all Users
@@ -16,7 +16,8 @@ module.exports = {
     async getSingleUser(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
-
+            .populate('thoughts')
+            .populate('friends')
             if (!user) {
                 return res.status(400).json({ message: 'No user found with that id'});
             }
@@ -38,11 +39,13 @@ module.exports = {
     // Delete User
     async deleteUser(req, res) {
         try {
-            const user = await User.findOneAndRemove({ _id: req.params.userId });
+            const user = await User.findOneAndDelete({ _id: req.params.userId });
             if (!user) {
                 return res.status(400).json({ message: 'No user found with that id'})
             }
-            res.json({ message: 'User succesfully deleted.'});
+
+            await Thought.deleteMany({ _id: { $in: user.thoughts }})
+            res.json({ message: 'User and thoughts deleted.'});
         } catch (error) {
             res.status(500).json(error);
         }
