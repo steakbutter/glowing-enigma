@@ -24,6 +24,15 @@ module.exports = {
     },
     // Create a thought
     async createThought(req, res) {
-        
-    }
+        try {
+            const thoughts = await Thought.create(req.body);
+            res.json(thoughts);
+            
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
+    },
+    // Delete thought
+    async 
 }
