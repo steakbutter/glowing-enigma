@@ -40,7 +40,7 @@ module.exports = {
             if (!thought) {
                 return res.status(400).json({ message: 'No thought with that id'});
             }
-            res.status(200).json(thought);
+            res.status(200).json({ message: 'thought deleted.'});
         } catch (error) {
             res.status(500).json(error);
         }
