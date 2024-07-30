@@ -73,7 +73,11 @@ module.exports = {
         try {
             console.log('Adding a friend');
             console.log(req.body);
-            const user = await User.create({ $addToSet: { friends: { friendsId: req.body } }})
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                {$addToSet: {friends: req.params.friendsId}},
+                {new: true}
+            )
             res.status(200).json(user);
         } catch (error) {
             res.status(500).json(error);
@@ -83,8 +87,8 @@ module.exports = {
         try {
             const user = await User.findOneAndDelete(
                 {_id: req.params.userId},
-                { $pull: { friends: { friendsId: req.params.friendsId } } },
-                { runValidators: true, new: true }
+                { $pull: { friends: req.params.friendsId } },
+                { new: true }
             );
             console.log(user);
             if (!user) {

@@ -15,10 +15,10 @@ const userSchema = new Schema(
             unique: true,
             match: [/.+\@.+\..+/, 'Please fill a valid email address']
         },
-        thoughts: {
+        thoughts: [{
             type: Schema.Types.ObjectId,
             ref: 'thought'
-        },
+        }],
         friends: [{
             type: Schema.Types.ObjectId,
             ref: 'user'
