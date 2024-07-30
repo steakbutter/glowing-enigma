@@ -28,7 +28,8 @@ Run "npm start" inside the terminal. <br>
 Once server is running on localhost:3001 you can test out the following API routes: <br><br>
 /api/users: GET all users. POST a new user. GET, PUT and DELETE a user by _id<br>
 ![alt text](<images/get and get one ch18.gif>)<br><br>
-/api/thoughts: GET all thoughts. POST a new thought. GET, PUT and DELETE a thought by _id <br>
+/api/thoughts: GET all thoughts. POST a new thought. GET, PUT and DELETE a thought by _id <br><br>
+![alt text](<images/thoughts routes.gif>) <br><br>
 A full demo on every route is available at the next link: https://drive.google.com/file/d/1yDQYrnYpGTg3IAshQG_b0R6Il2c6zSQX/view?usp=sharing
 
 ## License
